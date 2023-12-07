@@ -101,7 +101,7 @@ int main() {
 		answer.push_back(num7);
 
 
-		cout << "В конце 4 курса будете отмечать с нами выпуск? (1 - да, 0 - нет)";
+		cout << "В конце 4 курса будете отмечать с нами выпускной? (1 - да, 0 - нет)";
 		cin >> num8;
 		num8 = proverka(num8);
 		answer.push_back(num8);
