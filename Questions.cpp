@@ -160,6 +160,24 @@ int main() {
 		cin >> newans;
 		newans = proverka(newans);
 		answers[numques-1] = newans;
+
+		ofile.close();
+
+		ofstream out;
+		out.open("questions.txt");
+
+		int perevod = 0;
+		int degree = 0;
+
+		for (int i = 7; i >= 0; i--) {
+			perevod += answers[i] * (pow(2, degree));
+			degree++;
+		}
+
+		char ascii = perevod;
+		out << ascii;
+
+		out.close();
 	}
 
 
