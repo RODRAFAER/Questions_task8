@@ -5,6 +5,7 @@
 #include <vector> 
 #include <string>
 #include <cmath>
+#include <algorithm>
 
 using namespace std;
 
@@ -99,16 +100,32 @@ int main() {
 
 	out.close();
 
-	int a = 1;
-	char ascii2[250];
+
+	char ascii2;
 
 	ifstream ofile("questions.txt");
 	if (ofile.is_open()) {
 		ofile >> ascii2;
-		cout << ascii2;
 	}
 	
+	int num = int(ascii2);
+	
+	if (num < 0) {
+		num += 256;
+	}
 
+	vector <int> answers;
+
+	while (num > 0) {
+		answers.push_back(num % 2);
+		num = num / 2;
+	}
+
+	reverse(answers.begin(), answers.end());
+
+	for (int i = 0; i < 8; i++) {
+		cout << answers[i];
+	}
 
 	system("pause");
 	return 0;
