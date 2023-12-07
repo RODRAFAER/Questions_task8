@@ -120,64 +120,106 @@ int main() {
 		char ascii = perevod;
 		out << ascii;
 
-		out.close();
-	}
-	else {
-		char ascii2;
+		cout << "Ваши ответы:" << endl;
+		for (int i = 0; i < 8; i++) {
+			cout << answer[i] << endl;
+			
+		}
 
-		ifstream ofile("questions.txt");
-		if (!ofile.is_open()) {
-			cout << "Вы ещё не ответили на вопросы:";
-			cout << endl;
-			goto perehod;
+		out.close();
+
+		int izmen1;
+
+		cout << "Хотите ли вы теперь изменить свои ответы? (1 - да, 0 - нет)";
+		cin >> izmen1;
+		izmen1 = proverka(izmen1);
+		if (izmen1 == 1) {
+			goto perehod2;
 		}
 		else {
-			ofile >> ascii2;
+			system("pause");
+			return 0;
 		}
+	}
+	else {
+	perehod2:
+		int otvet;
+		do {
+			char ascii2;
 
-		int num = int(ascii2);
+			ifstream ofile("questions.txt");
+			if (!ofile.is_open()) {
+				cout << "Вы ещё не ответили на вопросы:";
+				cout << endl;
+				goto perehod;
+			}
+			else {
+				ofile >> ascii2;
+			}
 
-		if (num < 0) {
-			num += 256;
-		}
+			int num = int(ascii2);
 
-		vector <int> answers;
+			if (num < 0) {
+				num += 256;
+			}
 
-		while (num > 0) {
-			answers.push_back(num % 2);
-			num = num / 2;
-		}
+			vector <int> answers;
 
-		reverse(answers.begin(), answers.end());
+			while (num > 0) {
+				answers.push_back(num % 2);
+				num = num / 2;
+			}
 
-		int numques;
-		
-		cout << "На какой вопрос вы бы хотели изменить ответ? (Введите номер вопроса)";
-		cin >> numques;
-		numques = proverka2(numques);
-		cout << "Введите новый ответ на вопрос:";
-		int newans;
-		cin >> newans;
-		newans = proverka(newans);
-		answers[numques-1] = newans;
+			reverse(answers.begin(), answers.end());
 
-		ofile.close();
+			cout << "Ваши предыдущие ответы:" << endl;
 
-		ofstream out;
-		out.open("questions.txt");
+			for (int i = 0; i < 8; i++) {
+				cout << answers[i] << endl;
+			}
 
-		int perevod = 0;
-		int degree = 0;
+			int numques;
 
-		for (int i = 7; i >= 0; i--) {
-			perevod += answers[i] * (pow(2, degree));
-			degree++;
-		}
+			cout << "На какой вопрос вы бы хотели изменить ответ? (Введите номер вопроса)";
+			cin >> numques;
+			numques = proverka2(numques);
+			cout << "Введите новый ответ на вопрос:";
+			int newans;
+			cin >> newans;
+			newans = proverka(newans);
+			answers[numques - 1] = newans;
 
-		char ascii = perevod;
-		out << ascii;
+			ofile.close();
 
-		out.close();
+			ofstream out;
+			out.open("questions.txt");
+
+			int perevod = 0;
+			int degree = 0;
+
+			for (int i = 7; i >= 0; i--) {
+				perevod += answers[i] * (pow(2, degree));
+				degree++;
+			}
+
+			char ascii = perevod;
+			out << ascii;
+
+			cout << "Хотите ли вы ещё изменить свой ответ? (1 - да, 0 - нет)";
+			cin >> otvet;
+			otvet = proverka(otvet);
+
+			if (otvet == 0) {
+				cout << "Ваши ответы:" << endl;
+				for (int i = 0; i < 8; i++) {
+					cout << answers[i] << endl;
+				}
+			}
+			
+			out.close();
+
+		} while (otvet != 0);
+
 	}
 
 
