@@ -165,14 +165,20 @@ int main() {
 
 			vector <int> answers;
 
-			while (num > 0) {
+			while (answers.size() < 8) {
 				answers.push_back(num % 2);
 				num = num / 2;
 			}
 
-			reverse(answers.begin(), answers.end());
 
 			cout << "Ваши предыдущие ответы:" << endl;
+
+			if (answers.size() < 8) {
+				for (int i = 0; i < (8 - answers.size()); i++) {
+					answers.push_back(0);
+				}
+			}
+			reverse(answers.begin(), answers.end());
 
 			for (int i = 0; i < 8; i++) {
 				cout << answers[i] << endl;
@@ -209,6 +215,7 @@ int main() {
 			cin >> otvet;
 			otvet = proverka(otvet);
 
+			cout << endl;
 			if (otvet == 0) {
 				cout << "Ваши ответы:" << endl;
 				for (int i = 0; i < 8; i++) {
